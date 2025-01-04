@@ -1,5 +1,16 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: helkhouj <helkhouj@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/01/04 11:18:54 by helkhouj          #+#    #+#             */
+/*   Updated: 2025/01/04 11:19:48 by helkhouj         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "get_next_line.h"
-#include <stddef.h>
 
 int	has_newline(char *buffer)
 {
@@ -28,7 +39,8 @@ char	*append_buffer_to_line(char *current_line, char *buffer)
 	buffer_index = 0;
 	while (buffer[buffer_index] && buffer[buffer_index] != '\n')
 		buffer_index++;
-	new_line = (char *)ft_calloc((line_length + buffer_index + 2), sizeof(char));
+	new_line = (char *)ft_calloc((line_length + buffer_index + 2),
+			sizeof(char));
 	if (!new_line)
 		return (free(current_line), NULL);
 	new_line = ft_memcpy(new_line, current_line, line_length);
@@ -47,9 +59,9 @@ char	*append_buffer_to_line(char *current_line, char *buffer)
 
 char	*get_next_line(int fd)
 {
-	static char		buffer[BUFFER_SIZE + 1];
-	char			*current_line;
-	ssize_t			bytes_read;
+	static char	buffer[BUFFER_SIZE + 1];
+	char		*current_line;
+	ssize_t		bytes_read;
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
