@@ -6,7 +6,7 @@
 /*   By: helkhouj <helkhouj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/04 11:18:54 by helkhouj          #+#    #+#             */
-/*   Updated: 2025/01/04 11:19:48 by helkhouj         ###   ########.fr       */
+/*   Updated: 2025/01/08 12:48:02 by helkhouj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,15 +57,21 @@ char	*append_buffer_to_line(char *current_line, char *buffer)
 	return (new_line);
 }
 
+static void	null_terminate_buffer(char *buffer, ssize_t bytes_read)
+{
+	if (bytes_read < BUFFER_SIZE)
+		buffer[bytes_read] = '\0';
+}
+
 char	*get_next_line(int fd)
 {
-	static char	buffer[BUFFER_SIZE + 1];
+	static char	buffer[BUFFER_SIZE];
 	char		*current_line;
 	ssize_t		bytes_read;
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
-	current_line = (char *)ft_calloc(BUFFER_SIZE + 1, sizeof(char));
+	current_line = (char *)ft_calloc(BUFFER_SIZE, sizeof(char));
 	if (!current_line)
 		return (NULL);
 	current_line = append_buffer_to_line(current_line, buffer);
@@ -78,6 +84,7 @@ char	*get_next_line(int fd)
 			break ;
 		if (bytes_read <= 0)
 			return (free(current_line), NULL);
+		null_terminate_buffer(buffer, bytes_read);
 		current_line = append_buffer_to_line(current_line, buffer);
 		if (!current_line)
 			return (NULL);

@@ -6,7 +6,7 @@
 /*   By: helkhouj <helkhouj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/04 11:19:34 by helkhouj          #+#    #+#             */
-/*   Updated: 2025/01/04 11:19:35 by helkhouj         ###   ########.fr       */
+/*   Updated: 2025/01/08 11:53:53 by helkhouj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,13 @@
 
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 42
+# endif
+
+# ifdef BUFFER_SIZE
+#  if BUFFER_SIZE < 0
+#   undef BUFFER_SIZE
+#   define BUFFER_SIZE 0
+#  endif
 # endif
 
 # include <stddef.h>
